@@ -4,13 +4,19 @@ import {
   BrowserRouter as Router, Route, NavLink, Switch,
 } from 'react-router-dom';
 import './style.scss';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+
+import reducers from './reducers';
+import Counter from './containers/counter';
+import Controls from './containers/controls';
 
 const About = (props) => {
   return <div> All there is to know about me </div>;
 };
 
 const Welcome = (props) => {
-  return <div>Welcome</div>;
+  return <div>Welcome<Counter /><Controls /></div>;
 };
 
 const Test = (props) => {
@@ -50,5 +56,14 @@ const Nav = (props) => {
   );
 };
 
+const store = createStore(reducers, {}, compose(
+  applyMiddleware(),
+  window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f,
+));
 
-ReactDOM.render(<App />, document.getElementById('main'));
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>, document.getElementById('main'),
+);
