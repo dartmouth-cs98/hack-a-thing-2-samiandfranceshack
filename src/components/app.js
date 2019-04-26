@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router, Route, NavLink, Switch,
 } from 'react-router-dom';
@@ -52,6 +51,4 @@ const Nav = (props) => {
   );
 };
 
-
-ReactDOM.render(<App />, document.getElementById('main'));
-// export default withRouter(connect(null, null)(App));
+export default App;
