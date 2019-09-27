@@ -1,3 +1,7 @@
+dist
+node_modules
+yarn-error.log
+.DS_Store
 ### Node ###
 # Logs
 logs
@@ -32,4 +36,9 @@ jspm_packages
 .npm
 
 # Optional REPL history
+<<<<<<< HEAD
 .node_repl_history
+>>>>>>> a2d96efa9a0e292599b6058127c7c1659f8ae842
+=======
+.node_repl_history
+>>>>>>> 6092294d3dd41a44c857537e6320053f8ec7e693
