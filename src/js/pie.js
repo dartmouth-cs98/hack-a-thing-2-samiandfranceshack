@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { VictoryChart, VictoryPie } from 'victory';
+import { VictoryChart, VictoryPie, VictoryLabel } from 'victory';
 
 const thedata = [
   {
@@ -840,15 +840,38 @@ const thedata = [
   }
 ]
 
+
 class PieChart extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      category: 'Engineering'
+    }
+  }
+
+  change(event) {
+    console.log(event.target.value);
+    this.setState({ category: event.target.value })
+  }
+
   render() {
-    return (<VictoryChart><VictoryPie
-      data={thedata}
-      // categories={{ x: ["Engineering", "Physical Sciences", "Computers & Mathematics", "Health", "Biology & Life Sciences"] }}
-      x="Major"
-      y="ShareWomen"
-    />
-    </VictoryChart>);
+    return (
+      <div>
+        <select id="majorCategory" onChange={this.change.bind(this)} value={this.state.category}>
+          <option value="Engineering">Engineering</option>
+          <option value="Physical Sciences">Physical Sciences</option>
+          <option value="Computers &amp; Mathematics">Computers &amp; Mathematics</option>
+          <option value="Health">Health</option>
+          <option value="Biology &amp; Life Science">Biology &amp; Life Science</option>
+        </select>
+        <VictoryChart>
+          <VictoryPie
+            data={thedata.filter(d => d.Major_category === this.state.category)}
+            x="Major"
+            y="ShareWomen"
+          />
+        </VictoryChart>
+      </div>);
   }
 }
 
