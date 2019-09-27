@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { VictoryChart, VictoryPie, VictoryLabel } from 'victory';
+import { VictoryPie, VictoryTooltip } from 'victory';
 
 const thedata = [
   {
@@ -857,6 +857,7 @@ class PieChart extends Component {
   render() {
     return (
       <div>
+        <h3>choose a major category</h3>
         <select id="majorCategory" onChange={this.change.bind(this)} value={this.state.category}>
           <option value="Engineering">Engineering</option>
           <option value="Physical Sciences">Physical Sciences</option>
@@ -864,13 +865,18 @@ class PieChart extends Component {
           <option value="Health">Health</option>
           <option value="Biology &amp; Life Science">Biology &amp; Life Science</option>
         </select>
-        <VictoryChart>
-          <VictoryPie
-            data={thedata.filter(d => d.Major_category === this.state.category)}
-            x="Major"
-            y="ShareWomen"
-          />
-        </VictoryChart>
+        <VictoryPie
+          data={thedata.filter(d => d.Major_category === this.state.category)}
+          x="Major"
+          y="ShareWomen"
+          colorScale="cool"
+          height={200}
+          labelComponent={
+            <VictoryTooltip
+              constrainToVisibleArea={true}
+              width={50}
+              style={{ "fontSize": 5 }} />}
+        />
       </div>);
   }
 }
