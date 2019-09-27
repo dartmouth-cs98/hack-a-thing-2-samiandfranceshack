@@ -1,5 +1,7 @@
-# Victory Tutorial
-A tutorial for Victory used with the Getting Started guide in Victory Docs. Build a stacked bar chart with Victory components.
+# Sami Burack and Frances Cohen Hack-a-Thing
+## Victory: A React Data Visualization Library
 
-## Getting Started
-Clone down the repo, run an `npm install` to install dependencies, and then use `npm start` to run the webpack server. The server will run at `localhost:8080`.
+*using data from fivethirtyeight*
+
+#### what didn't work
+- had a lot of trouble figuring out how to parse csv data, ended up using an online converter (wanted to get going w/ the data vis)
