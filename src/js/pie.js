@@ -875,7 +875,7 @@ class PieChart extends Component {
             <VictoryTooltip
               constrainToVisibleArea={true}
               width={50}
-              style={{ "fontSize": 5 }} />}
+              style={{ "fontSize": 5, "wordWrap": "break-word" }} />}
         />
       </div>);
   }

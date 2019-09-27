@@ -4,4 +4,4 @@
 *using data from fivethirtyeight*
 
 #### what didn't work
-- had a lot of trouble figuring out how to parse csv data, ended up using an online converter (initially -- wanted to get going w/ the data vis)
+- had a lot of trouble figuring out how to parse csv data, ended up using an online converter (wanted to get going w/ the data vis)
