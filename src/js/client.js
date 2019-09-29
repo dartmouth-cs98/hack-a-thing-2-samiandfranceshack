@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PieChart from './pie';
-import { VictoryLegend, VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryStack } from 'victory';
+import { VictoryLegend, VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryStack, VictoryTooltip } from 'victory';
 
 const thedata = [
   {
@@ -842,19 +842,6 @@ const thedata = [
   }
 ]
 
-const dataMen = [
-  { field: "Chem Engineering", number: 21239 },
-  { field: "Computer Science", number: 99743 },
-  { field: "Physics", number: 23080 },
-  { field: "Mathematics", number: 39956 }
-];
-const dataWomen = [
-  { field: "Chem Engineering", number: 11021 },
-  { field: "Computer Science", number: 28576 },
-  { field: "Physics", number: 9062 },
-  { field: "Mathematics", number: 32441 }
-];
-
 
 class Main extends React.Component {
   constructor(props) {
@@ -881,27 +868,24 @@ class Main extends React.Component {
           <option value="Biology &amp; Life Science">Biology &amp; Life Science</option>
         </select>
         <VictoryChart
-          theme={VictoryTheme.material}
+          theme={VictoryTheme.material} style={{ parent: { maxWidth: "50%" } }}
           // domainPadding={20}
         >
-        <VictoryAxis/>
-        {/* <VictoryAxis label= "Field" style={{ tickLabels: { padding: 10, angle: -45 }, axisLabel: {padding: 10}, labels: {({thedata})=> data.x} */}
-            {/* // tickValues specifies both the number of ticks and where
-            // they are placed on the axis
-            // tickValues={[1, 2, 3, 4]}
-            // tickFormat={["Engineering", "CS", "Physics", "Mathematics"]}
-          /> */}
+        <VictoryAxis />
           <VictoryAxis
             dependentAxis
             tickFormat={(x) => (`${x / 1000}k`)}
           />
-                  <VictoryLegend  x={250} title="Legend" style={{ padding: 20, border: { stroke: "black" }, title: {fontSize: 20 } }}
+                  <VictoryLegend  x={250} title="Legend" style={{ padding: 20, border: { stroke: "black", padding: 50 }, title: {fontSize: 15 }}} centerTitle
         data={[
           { name: "Men", symbol: { fill: "yellow", type: "circle" } },
           { name: "Women", symbol: { fill: "red", type: "circle" } },
         ]}
 />
-          <VictoryStack>
+          <VictoryStack animate={{
+  duration: 2000,
+  onLoad: { duration: 1000 }
+}}>
             <VictoryBar
           data={thedata.filter(d => d.Major_category === this.state.category)}
           x="Major"
@@ -912,6 +896,7 @@ class Main extends React.Component {
           x="Major"
               y="Men"
             />
+            
           </VictoryStack>
         </VictoryChart>
       </div>
