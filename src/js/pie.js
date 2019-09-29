@@ -847,50 +847,87 @@ thedata.forEach(function (obj) {
   genderData.push(women, men);
 });
 
-function createMajorsList(thedata) {
-  var majorsList = [];
-  for (var i = 0; i < thedata.length; i++) {
-    majorsList.push(<option value={thedata.Major}>{thedata.Major}</option>)
-  }
-  console.log(majorsList);
-  return majorsList;
-}
-
 class PieChart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      category: 'Engineering',
+      majorCategory: 'Health',
+      showBreakdown: false,
       major: 'COMPUTER SCIENCE'
     }
   }
 
   changeMajorCategory(event) {
-    this.setState({ category: event.target.value })
+    this.setState({ majorCategory: event.target.value })
   }
 
   changeMajor(event) {
     this.setState({ major: event.target.value })
   }
 
+  click(event) {
+    this.setState({ showBreakdown: !this.state.showBreakdown })
+  }
+
+  // https://stackoverflow.com/questions/32238602/javascript-remove-duplicates-of-objects-sharing-same-property-value
+  removeDuplicatesBy(keyFn, array) {
+    var mySet = new Set();
+    return array.filter(function (x) {
+      var key = keyFn(x), isNew = !mySet.has(key);
+      if (isNew) mySet.add(key);
+      return isNew;
+    });
+  }
+
+  createSubMajorsPies(data) {
+    const majors = data.filter(d => d.Major_category === this.state.majorCategory);
+    var pies = []
+    for (var i = 0; i < majors.length; i++) {
+      pies.push(
+        <div class="breakdown">
+          <h4 class="breakdownTitle">{majors[i].Major}</h4>
+          <VictoryPie
+            data={genderData.filter(d => d.major === majors[i].Major)}
+            x="gender"
+            y="count"
+            style={{
+              labels: {
+                fontSize: 20
+              }
+            }}
+            animate={{ duration: 1000 }}
+            height={250}
+            labels={({ x, y }) => `${x}: ${y}`}
+            animate={{ duration: 1000 }}
+            colorScale={["#8D56E9", "#5DC0AB"]} />
+        </div>)
+    }
+    return pies;
+  }
+
   render() {
-    //createMajorsList(thedata);
+
     return (
       <div>
-        <h3>choose a major category</h3>
-        <select id="majorCategory" onChange={this.changeMajorCategory.bind(this)} value={this.state.category}>
-          <option value="Engineering">Engineering</option>
-          <option value="Physical Sciences">Physical Sciences</option>
-          <option value="Computers &amp; Mathematics">Computers &amp; Mathematics</option>
-          <option value="Health">Health</option>
-          <option value="Biology &amp; Life Science">Biology &amp; Life Science</option>
-        </select>
+        <div>
+          <h3>choose a major category</h3>
+          <select id="majorCategory" onChange={this.changeMajorCategory.bind(this)} value={this.state.majorCategory}>
+            {this.removeDuplicatesBy(x => x.Major_category, thedata).map((d, i) => {
+              return <option key={i} value={d.Major_category}>{d.Major_category}</option>
+            })}
+          </select>
+        </div>
+        <button onClick={this.click.bind(this)}>{this.state.showBreakdown ? 'hide' : 'show'} individual gender breakdowns for {this.state.majorCategory}</button>
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
+          {this.state.showBreakdown ? this.createSubMajorsPies(thedata) : null}
+        </div>
+        <h3>general women percentage for {this.state.majorCategory}</h3>
         <VictoryPie
-          data={thedata.filter(d => d.Major_category === this.state.category)}
+          data={thedata.filter(d => d.Major_category === this.state.majorCategory)}
           x="Major"
           y="ShareWomen"
           colorScale="cool"
-          height={200}
+          height={150}
           animate={{ duration: 2000 }}
           labelComponent={
             <VictoryTooltip
@@ -898,9 +935,10 @@ class PieChart extends Component {
               width={50}
               style={{ "fontSize": 5, "wordWrap": "break-word" }} />}
         />
+        <h3>select a major to show men/women breakdown</h3>
         <select id="major" onChange={this.changeMajor.bind(this)} value={this.state.major}>
-          {thedata.map((d) => {
-            return <option value={d.Major}>{d.Major}</option>
+          {thedata.map((d, i) => {
+            return <option key={i} value={d.Major}>{d.Major}</option>
           })}
         </select>
         <VictoryPie
@@ -908,8 +946,9 @@ class PieChart extends Component {
           x="gender"
           y="count"
           height={200}
-          animate={{ duration: 2000 }}
-          colorScale={["red", "blue"]}
+          labels={({ x, y }) => `${x}: ${y}`}
+          animate={{ duration: 1000 }}
+          colorScale={["#8D56E9", "#5DC0AB"]}
         />
       </div>);
   }
