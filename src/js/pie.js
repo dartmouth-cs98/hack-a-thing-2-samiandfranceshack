@@ -840,25 +840,45 @@ const thedata = [
   }
 ]
 
+const genderData = []
+thedata.forEach(function (obj) {
+  const women = { major: obj.Major, count: obj.Women, gender: 'women' }
+  const men = { major: obj.Major, count: obj.Men, gender: 'men' }
+  genderData.push(women, men);
+});
+
+function createMajorsList(thedata) {
+  var majorsList = [];
+  for (var i = 0; i < thedata.length; i++) {
+    majorsList.push(<option value={thedata.Major}>{thedata.Major}</option>)
+  }
+  console.log(majorsList);
+  return majorsList;
+}
 
 class PieChart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      category: 'Engineering'
+      category: 'Engineering',
+      major: 'COMPUTER SCIENCE'
     }
   }
 
-  change(event) {
-    console.log(event.target.value);
+  changeMajorCategory(event) {
     this.setState({ category: event.target.value })
   }
 
+  changeMajor(event) {
+    this.setState({ major: event.target.value })
+  }
+
   render() {
+    //createMajorsList(thedata);
     return (
       <div>
         <h3>choose a major category</h3>
-        <select id="majorCategory" onChange={this.change.bind(this)} value={this.state.category}>
+        <select id="majorCategory" onChange={this.changeMajorCategory.bind(this)} value={this.state.category}>
           <option value="Engineering">Engineering</option>
           <option value="Physical Sciences">Physical Sciences</option>
           <option value="Computers &amp; Mathematics">Computers &amp; Mathematics</option>
@@ -871,11 +891,25 @@ class PieChart extends Component {
           y="ShareWomen"
           colorScale="cool"
           height={200}
+          animate={{ duration: 2000 }}
           labelComponent={
             <VictoryTooltip
               constrainToVisibleArea={true}
               width={50}
               style={{ "fontSize": 5, "wordWrap": "break-word" }} />}
+        />
+        <select id="major" onChange={this.changeMajor.bind(this)} value={this.state.major}>
+          {thedata.map((d) => {
+            return <option value={d.Major}>{d.Major}</option>
+          })}
+        </select>
+        <VictoryPie
+          data={genderData.filter(d => d.major === this.state.major)}
+          x="gender"
+          y="count"
+          height={200}
+          animate={{ duration: 2000 }}
+          colorScale={["red", "blue"]}
         />
       </div>);
   }
