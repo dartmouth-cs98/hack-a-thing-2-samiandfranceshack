@@ -883,9 +883,10 @@ class PieChart extends Component {
     const majors = data.filter(d => d.Major_category === this.state.majorCategory);
     var pies = []
     for (var i = 0; i < majors.length; i++) {
+      const total = majors[i].Total
       pies.push(
-        <div class="breakdown">
-          <h4 class="breakdownTitle">{majors[i].Major}</h4>
+        <div className="breakdown">
+          <h4 className="breakdownTitle">{majors[i].Major}</h4>
           <VictoryPie
             data={genderData.filter(d => d.major === majors[i].Major)}
             x="gender"
@@ -897,7 +898,7 @@ class PieChart extends Component {
             }}
             animate={{ duration: 1000 }}
             height={250}
-            labels={({ x, y }) => `${x}: ${y}`}
+            labels={({ x, y }) => `${x}: ${parseInt(y / total * 100)}%`}
             animate={{ duration: 1000 }}
             colorScale={["#8D56E9", "#5DC0AB"]} />
         </div>)
