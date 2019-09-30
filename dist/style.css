@@ -1,0 +1,17 @@
+body {
+  font-family: "Gill Sans", "Gill Sans MT", Ser­avek, "Trebuchet MS", sans-serif;
+}
+
+select {
+  height: 50px;
+  font-size: 30px;
+}
+
+.breakdown {
+  padding: 30px;
+}
+
+.breakdownTitle {
+  width: 300px;
+}
+
