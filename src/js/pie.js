@@ -934,7 +934,7 @@ class PieChart extends Component {
             <VictoryTooltip
               constrainToVisibleArea={true}
               width={50}
-              style={{ "fontSize": 5, "wordWrap": "break-word" }} />}
+              style={{ "fontSize": 5, "wordWrap": "break-word", "color": "white" }} />}
         />
         <h3>select a major to show men/women breakdown</h3>
         <select id="major" onChange={this.changeMajor.bind(this)} value={this.state.major}>

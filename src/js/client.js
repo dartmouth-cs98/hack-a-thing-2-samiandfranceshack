@@ -856,19 +856,20 @@ class Main extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div style={{"background-color": "#75B9BE", "textAlign": "center", "color": "white"}}>
         <h1>Women in STEM Fields</h1>
         <PieChart />
-        <h3>choose a major category</h3>
-        <select id="majorCategory" onChange={this.change.bind(this)} value={this.state.category}>
+        <h3 >choose a major category</h3>
+        <select style= {{padding: 20}} id="majorCategory" onChange={this.change.bind(this)} value={this.state.category}>
           <option value="Engineering">Engineering</option>
           <option value="Physical Sciences">Physical Sciences</option>
           <option value="Computers &amp; Mathematics">Computers &amp; Mathematics</option>
           <option value="Health">Health</option>
           <option value="Biology &amp; Life Science">Biology &amp; Life Science</option>
         </select>
+        <div style={{display: "flex", justifyContent: "center"}}>
         <VictoryChart
-          theme={VictoryTheme.material} style={{ parent: { maxWidth: "50%" } }}
+          theme={VictoryTheme.material} style={{ parent: { maxWidth: "50%" }, padding: 20 }}
           // domainPadding={20}
         >
         <VictoryAxis />
@@ -876,7 +877,7 @@ class Main extends React.Component {
             dependentAxis
             tickFormat={(x) => (`${x / 1000}k`)}
           />
-                  <VictoryLegend  x={250} title="Legend" style={{ padding: 20, border: { stroke: "black", padding: 50 }, title: {fontSize: 15 }}} centerTitle
+                  <VictoryLegend  x={250} title="Legend" style={{ padding: 40, border: { stroke: "black", padding: 50 }, title: {fontSize: 15 }}} centerTitle
         data={[
           { name: "Men", symbol: { fill: "yellow", type: "circle" } },
           { name: "Women", symbol: { fill: "red", type: "circle" } },
@@ -899,6 +900,7 @@ class Main extends React.Component {
             
           </VictoryStack>
         </VictoryChart>
+        </div>
       </div>
     );
   }
