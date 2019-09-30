@@ -1,7 +1,9 @@
-## Frances Cohen and Sami Burack
-## September 31, 2019
-## Hack-a-thing-2
-## CS 98 Fall 2019
+# Vicory: A React Data Visualization Library
+
+### Frances Cohen and Sami Burack
+### September 31, 2019
+### Hack-a-thing-2
+### CS 98 Fall 2019
 
 ## What We did
 For our hack-a-thing-2 we experimented with Victory to try out some data visualization. We found a large dataset on Women in STEM fields and thought it would be cool to visualize some of this data. Specifically, we made several pie charts that indicate the percentage of women in each subcategory of a major category that can be selected from a dropdown as well as several individual pie charts showing the male/female breakdowns for each of these subcategories individually. We also have a pie chart showing the male vs. female breakdowns overall for whichever major category is selected. We then have a bar chart, which also depends on the major category selected from a drop down, which shows the male vs. female breakdown for each individual category (the bars indicate the number of people in those categories, with colors indicating how many are male and how many are female).
