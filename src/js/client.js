@@ -856,7 +856,7 @@ class Main extends React.Component {
   }
   render() {
     return (
-      <div style={{"background-color": "#75B9BE", "textAlign": "center", "color": "white"}}>
+      <div style={{"background-color": "#88A2AA", "textAlign": "center", "color": "white"}}>
         <h1>Women in STEM Fields</h1>
         <PieChart />
         <h3 >choose a major category</h3>
